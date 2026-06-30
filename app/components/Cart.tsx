@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { X, Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "../context/CartContext";
@@ -53,54 +54,75 @@ export default function Cart({ open, onClose }: CartProps) {
               </button>
             </div>
 
-            {/* Cart Items */}
+            {/* Items */}
             <div className="flex-1 overflow-y-auto p-6">
               {cart.length === 0 ? (
                 <p className="text-gray-400">
                   Your cart is empty.
                 </p>
               ) : (
-                <div className="space-y-6">
+                <div className="space-y-5">
                   {cart.map((item) => (
                     <div
-                      key={item.id}
-                      className="rounded-2xl border border-white/10 p-4"
+                      key={`${item.id}-${item.size}`}
+                      className="flex gap-4 rounded-2xl border border-white/10 bg-[#181818] p-4"
                     >
-                      <h3 className="text-lg font-bold text-white">
-                        {item.name}
-                      </h3>
-
-                      <p className="mt-2 text-red-500">
-                        ₹{item.price}
-                      </p>
-
-                      <div className="mt-4 flex items-center gap-3">
-                        <button
-                          onClick={() =>
-                            decreaseQuantity(item.id)
-                          }
-                          className="rounded-lg bg-red-600 p-2 transition hover:bg-red-700"
-                        >
-                          <Minus size={16} />
-                        </button>
-
-                        <span className="w-8 text-center text-lg font-bold text-white">
-                          {item.quantity}
-                        </span>
-
-                        <button
-                          onClick={() =>
-                            increaseQuantity(item.id)
-                          }
-                          className="rounded-lg bg-red-600 p-2 transition hover:bg-red-700"
-                        >
-                          <Plus size={16} />
-                        </button>
+                      <div className="relative h-24 w-24 overflow-hidden rounded-xl">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover"
+                        />
                       </div>
 
-                      <p className="mt-4 font-bold text-white">
-                        Total: ₹{item.price * item.quantity}
-                      </p>
+                      <div className="flex flex-1 flex-col">
+                        <h3 className="font-bold text-white">
+                          {item.name}
+                        </h3>
+
+                        <p className="text-sm text-gray-400">
+                          Size: {item.size}
+                        </p>
+
+                        <p className="mt-1 font-semibold text-red-500">
+                          ₹{item.price}
+                        </p>
+
+                        <div className="mt-3 flex items-center gap-3">
+                          <button
+                            onClick={() =>
+                              decreaseQuantity(
+                                item.id,
+                                item.size
+                              )
+                            }
+                            className="rounded-lg bg-red-600 p-2"
+                          >
+                            <Minus size={14} />
+                          </button>
+
+                          <span className="font-bold text-white">
+                            {item.quantity}
+                          </span>
+
+                          <button
+                            onClick={() =>
+                              increaseQuantity(
+                                item.id,
+                                item.size
+                              )
+                            }
+                            className="rounded-lg bg-red-600 p-2"
+                          >
+                            <Plus size={14} />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="font-bold text-white">
+                        ₹{item.price * item.quantity}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -114,7 +136,7 @@ export default function Cart({ open, onClose }: CartProps) {
                 <span>₹{total}</span>
               </div>
 
-              <button className="w-full rounded-full bg-red-600 py-4 font-bold uppercase text-white transition hover:bg-red-700">
+              <button className="w-full rounded-full bg-red-600 py-4 font-bold uppercase tracking-widest text-white transition hover:bg-red-700">
                 Checkout
               </button>
             </div>
