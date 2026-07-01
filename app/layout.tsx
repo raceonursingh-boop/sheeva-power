@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
+import { CouponProvider } from "./context/CouponContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,10 +31,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full">
+      <body className="min-h-full bg-black text-white">
         <WishlistProvider>
           <CartProvider>
-            {children}
+            <CouponProvider>
+              {children}
+            </CouponProvider>
           </CartProvider>
         </WishlistProvider>
       </body>
