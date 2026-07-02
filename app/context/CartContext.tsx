@@ -3,8 +3,8 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useState,
+  useEffect,
   ReactNode,
 } from "react";
 
@@ -19,39 +19,22 @@ export type CartItem = {
 
 type CartContextType = {
   cart: CartItem[];
-
-  addToCart: (
-    item: Omit<CartItem, "quantity">
-  ) => void;
-
-  increaseQuantity: (
-    id: number,
-    size: string
-  ) => void;
-
-  decreaseQuantity: (
-    id: number,
-    size: string
-  ) => void;
-
-  clearCart: () => void;
-
   subtotal: number;
-
   totalItems: number;
 
   isCartOpen: boolean;
-
   openCart: () => void;
-
   closeCart: () => void;
 
-  toggleCart: () => void;
+  addToCart: (item: Omit<CartItem, "quantity">) => void;
+  increaseQuantity: (id: number, size: string) => void;
+  decreaseQuantity: (id: number, size: string) => void;
+  clearCart: () => void;
 };
 
-const CartContext = createContext<
-  CartContextType | undefined
->(undefined);
+const CartContext = createContext<CartContextType | undefined>(
+  undefined
+);
 
 export function CartProvider({
   children,
@@ -59,26 +42,18 @@ export function CartProvider({
   children: ReactNode;
 }) {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] =
-    useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Load cart from localStorage
   useEffect(() => {
-    const savedCart = localStorage.getItem(
-      "sheeva-cart"
-    );
+    const savedCart = localStorage.getItem("cart");
 
     if (savedCart) {
       setCart(JSON.parse(savedCart));
     }
   }, []);
 
-  // Save cart to localStorage
   useEffect(() => {
-    localStorage.setItem(
-      "sheeva-cart",
-      JSON.stringify(cart)
-    );
+    localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
   function openCart() {
@@ -89,13 +64,7 @@ export function CartProvider({
     setIsCartOpen(false);
   }
 
-  function toggleCart() {
-    setIsCartOpen((prev) => !prev);
-  }
-
-  function addToCart(
-    item: Omit<CartItem, "quantity">
-  ) {
+  function addToCart(item: Omit<CartItem, "quantity">) {
     setCart((prev) => {
       const existing = prev.find(
         (p) =>
@@ -137,8 +106,7 @@ export function CartProvider({
         item.size === size
           ? {
               ...item,
-              quantity:
-                item.quantity + 1,
+              quantity: item.quantity + 1,
             }
           : item
       )
@@ -156,15 +124,11 @@ export function CartProvider({
           item.size === size
             ? {
                 ...item,
-                quantity:
-                  item.quantity - 1,
+                quantity: item.quantity - 1,
               }
             : item
         )
-        .filter(
-          (item) =>
-            item.quantity > 0
-        )
+        .filter((item) => item.quantity > 0)
     );
   }
 
@@ -174,14 +138,12 @@ export function CartProvider({
 
   const subtotal = cart.reduce(
     (total, item) =>
-      total +
-      item.price * item.quantity,
+      total + item.price * item.quantity,
     0
   );
 
   const totalItems = cart.reduce(
-    (total, item) =>
-      total + item.quantity,
+    (total, item) => total + item.quantity,
     0
   );
 
@@ -189,16 +151,17 @@ export function CartProvider({
     <CartContext.Provider
       value={{
         cart,
+        subtotal,
+        totalItems,
+
+        isCartOpen,
+        openCart,
+        closeCart,
+
         addToCart,
         increaseQuantity,
         decreaseQuantity,
         clearCart,
-        subtotal,
-        totalItems,
-        isCartOpen,
-        openCart,
-        closeCart,
-        toggleCart,
       }}
     >
       {children}
@@ -207,8 +170,7 @@ export function CartProvider({
 }
 
 export function useCart() {
-  const context =
-    useContext(CartContext);
+  const context = useContext(CartContext);
 
   if (!context) {
     throw new Error(
