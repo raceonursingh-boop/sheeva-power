@@ -66,6 +66,7 @@ export default function ProductCard({
           <button
             onClick={(e) => {
               e.preventDefault();
+              e.stopPropagation();
               toggleWishlist(id);
             }}
             className="absolute right-4 top-4 z-20 rounded-full bg-black/70 p-2 text-white backdrop-blur transition-all duration-300 hover:scale-110 hover:bg-red-600"
@@ -87,6 +88,7 @@ export default function ProductCard({
               View Product
             </div>
           </div>
+
         </div>
       </Link>
 
@@ -136,7 +138,12 @@ export default function ProductCard({
           {["S", "M", "L", "XL"].map((size) => (
             <button
               key={size}
-              onClick={() => setSelectedSize(size)}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setSelectedSize(size);
+              }}
               className={`rounded-xl py-2 text-sm font-bold transition ${
                 selectedSize === size
                   ? "bg-red-600 text-white"
@@ -160,15 +167,19 @@ export default function ProductCard({
           </Link>
 
           <button
-            onClick={() =>
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+
               addToCart({
                 id,
                 name,
                 price,
                 image,
                 size: selectedSize,
-              })
-            }
+              });
+            }}
             className="flex items-center justify-center gap-2 rounded-full bg-red-600 py-3 text-sm font-bold uppercase tracking-widest text-white transition hover:scale-[1.02] hover:bg-red-700"
           >
             <ShoppingBag size={16} />

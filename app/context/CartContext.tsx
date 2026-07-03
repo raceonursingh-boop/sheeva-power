@@ -56,9 +56,10 @@ export function CartProvider({
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  function openCart() {
-    setIsCartOpen(true);
-  }
+ function openCart() {
+  console.log("OPEN CART");
+  setIsCartOpen(true);
+}
 
   function closeCart() {
     setIsCartOpen(false);

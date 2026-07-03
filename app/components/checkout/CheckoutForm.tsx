@@ -17,7 +17,10 @@ import {
 export default function CheckoutForm() {
   const router = useRouter();
 
-  const { clearCart } = useCart();
+  const {
+    clearCart,
+    subtotal,
+  } = useCart();
 
   const {
     register,
@@ -30,12 +33,29 @@ export default function CheckoutForm() {
     },
   });
 
-  function onSubmit(data: CheckoutFormData) {
+  async function onSubmit(data: CheckoutFormData) {
     console.log(data);
 
-    clearCart();
+    const response = await fetch("/api/create-order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: subtotal,
+      }),
+    });
 
-    router.push("/checkout/success");
+    if (!response.ok) {
+      console.error("Failed to create Razorpay order");
+      return;
+    }
+
+    const order = await response.json();
+
+    console.log(order);
+
+    // We'll replace this with the Razorpay popup next.
   }
 
   return (
