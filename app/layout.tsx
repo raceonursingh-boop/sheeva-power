@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -39,6 +40,11 @@ export default function RootLayout({
             </CouponProvider>
           </CartProvider>
         </WishlistProvider>
+
+       <Script
+  src="https://checkout.razorpay.com/v1/checkout.js"
+  strategy="afterInteractive"
+/>
       </body>
     </html>
   );

@@ -34,28 +34,96 @@ export default function CheckoutForm() {
   });
 
   async function onSubmit(data: CheckoutFormData) {
-    console.log(data);
+    try {
+      const orderResponse = await fetch("/api/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: subtotal,
+        }),
+      });
 
-    const response = await fetch("/api/create-order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        amount: subtotal,
-      }),
-    });
+      if (!orderResponse.ok) {
+        alert("Unable to create Razorpay order.");
+        return;
+      }
 
-    if (!response.ok) {
-      console.error("Failed to create Razorpay order");
-      return;
+      const order = await orderResponse.json();
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+
+        amount: order.amount,
+
+        currency: order.currency,
+
+        name: "Sheeva Power",
+
+        description: "Order Payment",
+
+        image: "/logo.png",
+
+        order_id: order.id,
+
+        prefill: {
+          name: `${data.firstName} ${data.lastName}`,
+          email: data.email,
+          contact: data.phone,
+        },
+
+        theme: {
+          color: "#dc2626",
+        },
+
+        handler: async function (response: any) {
+          const verifyResponse = await fetch(
+            "/api/verify-payment",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+              body: JSON.stringify(response),
+            }
+          );
+
+          const result =
+            await verifyResponse.json();
+
+          if (result.success) {
+            clearCart();
+
+            router.push(
+              "/checkout/success"
+            );
+          } else {
+            alert(
+              "Payment verification failed."
+            );
+          }
+        },
+
+        modal: {
+          ondismiss() {
+            console.log(
+              "Payment cancelled."
+            );
+          },
+        },
+      };
+
+      const paymentObject =
+        new window.Razorpay(options);
+
+      paymentObject.open();
+    } catch (error) {
+      console.error(error);
+
+      alert("Something went wrong.");
     }
-
-    const order = await response.json();
-
-    console.log(order);
-
-    // We'll replace this with the Razorpay popup next.
   }
 
   return (
@@ -90,6 +158,7 @@ export default function CheckoutForm() {
         </h2>
 
         <div className="grid gap-5 md:grid-cols-2">
+
           <div>
             <input
               type="text"
@@ -202,6 +271,7 @@ export default function CheckoutForm() {
               className="w-full rounded-xl border border-white/10 bg-black px-5 py-4 text-white outline-none focus:border-red-600"
             />
           </div>
+
         </div>
       </section>
 
