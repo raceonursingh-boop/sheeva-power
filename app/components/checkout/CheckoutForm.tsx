@@ -14,6 +14,12 @@ import {
   CheckoutFormData,
 } from "../../lib/checkoutSchema";
 
+type RazorpayPaymentResponse = {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+};
+
 export default function CheckoutForm() {
   const router = useRouter();
 
@@ -53,7 +59,7 @@ export default function CheckoutForm() {
       const order = await orderResponse.json();
 
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
 
         amount: order.amount,
 
@@ -77,61 +83,54 @@ export default function CheckoutForm() {
           color: "#dc2626",
         },
 
-        handler: async function (response: any) {
+        handler: async (
+          response: RazorpayPaymentResponse
+        ) => {
           const verifyResponse = await fetch(
             "/api/verify-payment",
             {
               method: "POST",
               headers: {
-                "Content-Type":
-                  "application/json",
+                "Content-Type": "application/json",
               },
               body: JSON.stringify(response),
             }
           );
 
-          const result =
-            await verifyResponse.json();
+          const result = await verifyResponse.json();
 
           if (result.success) {
             clearCart();
-
-            router.push(
-              "/checkout/success"
-            );
+            router.push("/checkout/success");
           } else {
-            alert(
-              "Payment verification failed."
-            );
+            alert("Payment verification failed.");
           }
         },
 
         modal: {
           ondismiss() {
-            console.log(
-              "Payment cancelled."
-            );
+            console.log("Payment cancelled.");
           },
         },
       };
 
-      const paymentObject =
-        new window.Razorpay(options);
+      const razorpay = new window.Razorpay(options);
 
-      paymentObject.open();
+      razorpay.open();
+
     } catch (error) {
       console.error(error);
-
       alert("Something went wrong.");
     }
   }
 
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="space-y-10"
-    >
-      {/* Contact */}
+
+        return (
+  <form
+    onSubmit={handleSubmit(onSubmit)}
+    className="space-y-10"
+  >
+          {/* Contact */}
       <section className="rounded-3xl border border-white/10 bg-[#111] p-8">
         <h2 className="mb-6 text-2xl font-black uppercase text-white">
           Contact
@@ -274,8 +273,7 @@ export default function CheckoutForm() {
 
         </div>
       </section>
-
-      <ShippingMethod />
+            <ShippingMethod />
 
       <PaymentSection />
 
@@ -285,6 +283,6 @@ export default function CheckoutForm() {
       >
         Place Order
       </button>
-    </form>
-  );
+  </form>
+      );
 }
