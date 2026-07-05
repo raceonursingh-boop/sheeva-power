@@ -4,7 +4,7 @@ export const products: Product[] = [
   {
     id: 1,
     name: "CORE",
-    price: 699,
+    price: 9,
     material: "240 GSM Premium Cotton",
     color: "Black",
     badge: "NEW",
