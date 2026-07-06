@@ -23,11 +23,13 @@ type RazorpayPaymentResponse = {
 export default function CheckoutForm() {
   const router = useRouter();
 
-  const {
-    clearCart,
-    subtotal,
-  } = useCart();
-
+const {
+  cart,
+  clearCart,
+  subtotal,
+} = useCart();
+const shipping = 0;
+const total = subtotal + shipping;
   const {
     register,
     handleSubmit,
@@ -47,7 +49,7 @@ export default function CheckoutForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          amount: subtotal,
+          amount: total,
         }),
       });
 
@@ -93,7 +95,30 @@ export default function CheckoutForm() {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(response),
+              body: JSON.stringify({
+  ...response,
+
+  customer: {
+    firstName: data.firstName,
+    lastName: data.lastName,
+    email: data.email,
+    phone: data.phone,
+  },
+
+  address: {
+    address: data.address,
+    city: data.city,
+    state: data.state,
+    pinCode: data.pinCode,
+    country: data.country,
+  },
+
+  cart,
+
+  subtotal,
+  shipping,
+  total,
+}),
             }
           );
 

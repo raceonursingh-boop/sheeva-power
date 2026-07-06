@@ -1,13 +1,25 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
+import { getOrCreateCustomer } from "../../lib/customers";
+import { createAddress } from "../../lib/addresses";
+import { createOrder } from "../../lib/orders";
+import { createOrderItems } from "../../lib/orderitems";
 
 export async function POST(request: Request) {
   try {
     const {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-    } = await request.json();
+  razorpay_order_id,
+  razorpay_payment_id,
+  razorpay_signature,
+
+  customer,
+  address,
+  cart,
+
+  subtotal,
+  shipping,
+  total,
+} = await request.json();
 
     const body =
       razorpay_order_id + "|" + razorpay_payment_id;
@@ -32,7 +44,14 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+const savedCustomer = await getOrCreateCustomer({
+  first_name: customer.firstName,
+  last_name: customer.lastName,
+  email: customer.email,
+  phone: customer.phone,
+});
 
+console.log("Customer:", savedCustomer);
     return NextResponse.json({
       success: true,
     });
