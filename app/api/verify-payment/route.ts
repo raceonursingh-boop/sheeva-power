@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { getOrCreateCustomer } from "../../lib/customers";
 import { createAddress } from "../../lib/addresses";
 import { createOrder } from "../../lib/orders";
-import { createOrderItems } from "../../lib/temp";
+import { createOrderItems } from "../../lib/orderItems";
 
 export async function POST(request: Request) {
   try {
