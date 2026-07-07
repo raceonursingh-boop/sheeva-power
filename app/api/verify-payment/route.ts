@@ -6,27 +6,67 @@ import { createAddress } from "../../lib/addresses";
 import { createOrder } from "../../lib/orders";
 import { createOrderItems } from "../../lib/orderitems";
 
+type CartItem = {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  size: string;
+  quantity: number;
+};
+
+type VerifyPaymentRequest = {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+
+  customer: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+  };
+
+  address: {
+    address: string;
+    city: string;
+    state: string;
+    pinCode: string;
+    country: string;
+  };
+
+  cart: CartItem[];
+
+  subtotal: number;
+  shipping: number;
+  total: number;
+};
+
 export async function POST(request: Request) {
   try {
     const {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
-
       customer,
       address,
       cart,
-
       subtotal,
       shipping,
       total,
-    } = await request.json();
+    }: VerifyPaymentRequest = await request.json();
 
-    // Verify Razorpay signature
+    // ===========================
+    // Verify Razorpay Signature
+    // ===========================
+
     const body = `${razorpay_order_id}|${razorpay_payment_id}`;
 
     const expectedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
+      .createHmac(
+        "sha256",
+        process.env.RAZORPAY_KEY_SECRET!
+      )
       .update(body)
       .digest("hex");
 
@@ -43,7 +83,7 @@ export async function POST(request: Request) {
     console.log("✅ Payment verified");
 
     // ===========================
-    // Customer
+    // Save Customer
     // ===========================
 
     console.log("➡️ Saving customer...");
@@ -59,7 +99,7 @@ export async function POST(request: Request) {
     console.log(savedCustomer);
 
     // ===========================
-    // Address
+    // Save Address
     // ===========================
 
     console.log("➡️ Saving address...");
@@ -77,7 +117,7 @@ export async function POST(request: Request) {
     console.log(savedAddress);
 
     // ===========================
-    // Order
+    // Save Order
     // ===========================
 
     console.log("➡️ Saving order...");
@@ -97,13 +137,13 @@ export async function POST(request: Request) {
     console.log(savedOrder);
 
     // ===========================
-    // Order Items
+    // Save Order Items
     // ===========================
 
     console.log("➡️ Saving order items...");
 
     await createOrderItems(
-      cart.map((item: any) => ({
+      cart.map((item) => ({
         order_id: savedOrder.id,
         product_id: item.id,
         product_name: item.name,
