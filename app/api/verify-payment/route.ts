@@ -44,12 +44,20 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+console.log("✅ Payment verified");
+
+console.log("➡️ About to save customer");
+
 const savedCustomer = await getOrCreateCustomer({
   first_name: customer.firstName,
   last_name: customer.lastName,
   email: customer.email,
   phone: customer.phone,
 });
+
+console.log("✅ Customer saved");
+
+console.log(savedCustomer);
 
 console.log("Customer:", savedCustomer);
     return NextResponse.json({
