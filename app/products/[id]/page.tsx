@@ -1,8 +1,6 @@
-
-
 import { notFound } from "next/navigation";
 
-import { products } from "../../data/Products";
+import { getProductById } from "@/app/lib/products";
 import ProductDetails from "./ProductDetails";
 
 interface Props {
@@ -16,17 +14,19 @@ export default async function ProductPage({
 }: Props) {
   const { id } = await params;
 
-  const product = products.find(
-    (p) => p.id === Number(id)
-  );
+  try {
+    const product = await getProductById(Number(id));
 
-  if (!product) {
+    if (!product) {
+      notFound();
+    }
+
+    return (
+      <ProductDetails
+        product={product}
+      />
+    );
+  } catch {
     notFound();
   }
-
-  return (
-    <ProductDetails
-      product={product}
-    />
-  );
 }
