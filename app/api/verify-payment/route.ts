@@ -142,16 +142,20 @@ export async function POST(request: Request) {
 
     console.log("➡️ Saving order items...");
 
-    await createOrderItems(
-      cart.map((item) => ({
-        order_id: savedOrder.id,
-        product_id: item.id,
-        product_name: item.name,
-        size: item.size,
-        quantity: item.quantity,
-        price: item.price,
-      }))
-    );
+    const orderItems = cart.map((item) => ({
+      order_id: savedOrder.id,
+      product_id: item.id,
+      product_name: item.name,
+      size: item.size,
+      quantity: item.quantity,
+      price: item.price,
+    }));
+
+    console.log("========== ORDER ITEMS ==========");
+    console.log(orderItems);
+    console.log("================================");
+
+    await createOrderItems(orderItems);
 
     console.log("✅ Order items saved");
 
