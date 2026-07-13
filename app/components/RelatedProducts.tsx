@@ -9,7 +9,7 @@ export default function RelatedProducts({
   currentId,
 }: RelatedProductsProps) {
   const related = products
-    .filter((product) => product.product_id !== currentId)
+    .filter((product) => product.id !== currentId)
     .slice(0, 4);
 
   return (
@@ -22,7 +22,7 @@ export default function RelatedProducts({
         {related.map((product) => (
           <ProductCard
             key={product.id}
-            id={product.product_id}
+            id={product.id}
             name={product.name}
             price={product.price}
             image={product.image}

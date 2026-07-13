@@ -101,7 +101,7 @@ export default function ProductDetails({
             onAddToCart={() => {
               for (let i = 0; i < quantity; i++) {
                 addToCart({
-                  id: product.product_id,
+                  id: product.id,
                   name: product.name,
                   price: product.price,
                   image: product.image,
@@ -110,9 +110,9 @@ export default function ProductDetails({
               }
             }}
             onToggleWishlist={() =>
-              toggleWishlist(product.product_id)
+            toggleWishlist(product.id)
             }
-            wishlisted={isWishlisted(product.product_id)}
+         wishlisted={isWishlisted(product.id)}
           />
 
           <ProductFeatures
@@ -132,7 +132,7 @@ export default function ProductDetails({
 
       <div className="mx-auto mt-24 max-w-7xl">
         <RelatedProducts
-          currentId={product.product_id}
+    currentId={product.id}
         />
       </div>
     </main>
