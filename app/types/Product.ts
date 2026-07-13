@@ -1,5 +1,10 @@
 export interface Product {
-  id: number;
+  // UUID from Supabase
+  id: string;
+
+  // Numeric ID used by your frontend/cart/routes
+  product_id: number;
+
   name: string;
   price: number;
 

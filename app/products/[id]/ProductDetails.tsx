@@ -46,9 +46,7 @@ export default function ProductDetails({
 
   return (
     <main className="min-h-screen bg-black px-6 py-20">
-
       <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
-
         <ProductGallery
           images={images}
           selectedImage={selectedImage}
@@ -57,7 +55,6 @@ export default function ProductDetails({
         />
 
         <div>
-
           <p className="uppercase tracking-[0.4em] text-red-500">
             {product.badge}
           </p>
@@ -71,7 +68,6 @@ export default function ProductDetails({
           </p>
 
           <div className="mt-6 flex items-center gap-3">
-
             <div className="text-yellow-400">
               ★★★★★
             </div>
@@ -79,7 +75,6 @@ export default function ProductDetails({
             <p className="text-sm text-gray-500">
               145 Reviews
             </p>
-
           </div>
 
           <p className="mt-6 text-5xl font-black text-red-500">
@@ -87,9 +82,8 @@ export default function ProductDetails({
           </p>
 
           <p className="mt-8 max-w-lg leading-8 text-gray-400">
-            Premium oversized heavyweight
-            cotton designed for training,
-            travel, college and everyday
+            Premium oversized heavyweight cotton designed
+            for training, travel, college and everyday
             life.
           </p>
 
@@ -101,11 +95,13 @@ export default function ProductDetails({
           <QuantitySelector
             quantity={quantity}
             setQuantity={setQuantity}
-          />          <ProductActions
+          />
+
+          <ProductActions
             onAddToCart={() => {
               for (let i = 0; i < quantity; i++) {
                 addToCart({
-                  id: product.id,
+                  id: product.product_id,
                   name: product.name,
                   price: product.price,
                   image: product.image,
@@ -114,9 +110,9 @@ export default function ProductDetails({
               }
             }}
             onToggleWishlist={() =>
-              toggleWishlist(product.id)
+              toggleWishlist(product.product_id)
             }
-            wishlisted={isWishlisted(product.id)}
+            wishlisted={isWishlisted(product.product_id)}
           />
 
           <ProductFeatures
@@ -131,17 +127,14 @@ export default function ProductDetails({
           >
             ← Back to Shop
           </Link>
-
         </div>
-
       </div>
 
       <div className="mx-auto mt-24 max-w-7xl">
         <RelatedProducts
-          currentId={product.id}
+          currentId={product.product_id}
         />
       </div>
-
     </main>
   );
 }
