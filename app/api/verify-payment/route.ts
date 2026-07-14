@@ -151,10 +151,18 @@ export async function POST(request: Request) {
       price: item.price,
     }));
 
-    console.log("========== ORDER ITEMS ==========");
-    console.log(JSON.stringify(orderItems, null, 2));
-    console.log("================================");
+   console.log("========== ORDER ITEMS ==========");
 
+for (const item of orderItems) {
+  console.log("order_id =", item.order_id);
+  console.log("product_id =", item.product_id);
+  console.log("product_name =", item.product_name);
+  console.log("size =", item.size);
+  console.log("quantity =", item.quantity);
+  console.log("price =", item.price);
+}
+
+console.log("================================");
     await createOrderItems(orderItems);
 
     console.log("✅ Order items saved");

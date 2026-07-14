@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import { Product } from "../../types/Product";
-
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 
@@ -14,8 +12,17 @@ import QuantitySelector from "../../components/product/QuantitySelector";
 import ProductActions from "../../components/product/ProductActions";
 import ProductFeatures from "../../components/product/ProductFeatures";
 import ShippingCard from "../../components/product/ShippingCard";
-
 import RelatedProducts from "../../components/RelatedProducts";
+
+interface Product {
+  id: string; // Supabase UUID
+  product_id: number; // Numeric product ID
+  name: string;
+  price: number;
+  material: string;
+  badge: string;
+  image: string;
+}
 
 interface Props {
   product: Product;
@@ -101,7 +108,7 @@ export default function ProductDetails({
             onAddToCart={() => {
               for (let i = 0; i < quantity; i++) {
                 addToCart({
-                  id: product.id,
+                  id: product.product_id,
                   name: product.name,
                   price: product.price,
                   image: product.image,
@@ -110,9 +117,9 @@ export default function ProductDetails({
               }
             }}
             onToggleWishlist={() =>
-            toggleWishlist(product.id)
+              toggleWishlist(product.product_id)
             }
-         wishlisted={isWishlisted(product.id)}
+            wishlisted={isWishlisted(product.product_id)}
           />
 
           <ProductFeatures
@@ -132,7 +139,7 @@ export default function ProductDetails({
 
       <div className="mx-auto mt-24 max-w-7xl">
         <RelatedProducts
-    currentId={product.id}
+          currentId={product.product_id}
         />
       </div>
     </main>
