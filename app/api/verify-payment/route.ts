@@ -152,7 +152,7 @@ export async function POST(request: Request) {
     }));
 
     console.log("========== ORDER ITEMS ==========");
-    console.log(orderItems);
+    console.log(JSON.stringify(orderItems, null, 2));
     console.log("================================");
 
     await createOrderItems(orderItems);
