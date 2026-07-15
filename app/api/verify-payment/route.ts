@@ -56,17 +56,11 @@ export async function POST(request: Request) {
       total,
     }: VerifyPaymentRequest = await request.json();
 
-    // ===========================
-    // Verify Razorpay Signature
-    // ===========================
-
+    // Verify Razorpay signature
     const body = `${razorpay_order_id}|${razorpay_payment_id}`;
 
     const expectedSignature = crypto
-      .createHmac(
-        "sha256",
-        process.env.RAZORPAY_KEY_SECRET!
-      )
+      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET!)
       .update(body)
       .digest("hex");
 
@@ -80,14 +74,7 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log("✅ Payment verified");
-
-    // ===========================
-    // Save Customer
-    // ===========================
-
-    console.log("➡️ Saving customer...");
-
+    // Save customer
     const savedCustomer = await getOrCreateCustomer({
       first_name: customer.firstName,
       last_name: customer.lastName,
@@ -95,15 +82,7 @@ export async function POST(request: Request) {
       phone: customer.phone,
     });
 
-    console.log("✅ Customer saved");
-    console.log(savedCustomer);
-
-    // ===========================
-    // Save Address
-    // ===========================
-
-    console.log("➡️ Saving address...");
-
+    // Save address
     const savedAddress = await createAddress({
       customer_id: savedCustomer.id,
       address: address.address,
@@ -113,15 +92,7 @@ export async function POST(request: Request) {
       country: address.country,
     });
 
-    console.log("✅ Address saved");
-    console.log(savedAddress);
-
-    // ===========================
-    // Save Order
-    // ===========================
-
-    console.log("➡️ Saving order...");
-
+    // Save order
     const savedOrder = await createOrder({
       customer_id: savedCustomer.id,
       razorpay_order_id,
@@ -133,15 +104,7 @@ export async function POST(request: Request) {
       order_status: "pending",
     });
 
-    console.log("✅ Order saved");
-    console.log(savedOrder);
-
-    // ===========================
-    // Save Order Items
-    // ===========================
-
-    console.log("➡️ Saving order items...");
-
+    // Save order items
     const orderItems = cart.map((item) => ({
       order_id: savedOrder.id,
       product_id: item.id,
@@ -151,28 +114,17 @@ export async function POST(request: Request) {
       price: item.price,
     }));
 
-   console.log("========== ORDER ITEMS ==========");
-
-for (const item of orderItems) {
-  console.log("order_id =", item.order_id);
-  console.log("product_id =", item.product_id);
-  console.log("product_name =", item.product_name);
-  console.log("size =", item.size);
-  console.log("quantity =", item.quantity);
-  console.log("price =", item.price);
-}
-
-console.log("================================");
     await createOrderItems(orderItems);
 
-    console.log("✅ Order items saved");
+    console.log(
+      `✅ Order ${savedOrder.id} created successfully`
+    );
 
     return NextResponse.json({
       success: true,
     });
   } catch (error) {
-    console.error("❌ VERIFY PAYMENT ERROR");
-    console.error(error);
+    console.error("Verify payment error:", error);
 
     return NextResponse.json(
       {
