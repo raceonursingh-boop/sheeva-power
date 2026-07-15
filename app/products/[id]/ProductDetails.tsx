@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 
+import { Product } from "../../types/Product";
+
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
 
@@ -12,17 +14,8 @@ import QuantitySelector from "../../components/product/QuantitySelector";
 import ProductActions from "../../components/product/ProductActions";
 import ProductFeatures from "../../components/product/ProductFeatures";
 import ShippingCard from "../../components/product/ShippingCard";
-import RelatedProducts from "../../components/RelatedProducts";
 
-interface Product {
-  id: string; // Supabase UUID
-  product_id: number; // Numeric product ID
-  name: string;
-  price: number;
-  material: string;
-  badge: string;
-  image: string;
-}
+import RelatedProducts from "../../components/RelatedProducts";
 
 interface Props {
   product: Product;
@@ -31,6 +24,18 @@ interface Props {
 export default function ProductDetails({
   product,
 }: Props) {
+
+  // ===== DEBUG =====
+  console.log("========== PRODUCT ==========");
+  console.log(product);
+  console.log("product.id =", product.id);
+  console.log(
+    "product.product_id =",
+    (product as any).product_id
+  );
+  console.log("=============================");
+  // =================
+
   const { addToCart } = useCart();
   const { toggleWishlist, isWishlisted } =
     useWishlist();
@@ -54,6 +59,7 @@ export default function ProductDetails({
   return (
     <main className="min-h-screen bg-black px-6 py-20">
       <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
+
         <ProductGallery
           images={images}
           selectedImage={selectedImage}
@@ -62,6 +68,7 @@ export default function ProductDetails({
         />
 
         <div>
+
           <p className="uppercase tracking-[0.4em] text-red-500">
             {product.badge}
           </p>
@@ -108,7 +115,7 @@ export default function ProductDetails({
             onAddToCart={() => {
               for (let i = 0; i < quantity; i++) {
                 addToCart({
-                  id: product.product_id,
+                  id: product.id,
                   name: product.name,
                   price: product.price,
                   image: product.image,
@@ -117,9 +124,9 @@ export default function ProductDetails({
               }
             }}
             onToggleWishlist={() =>
-              toggleWishlist(product.product_id)
+              toggleWishlist(product.id)
             }
-            wishlisted={isWishlisted(product.product_id)}
+            wishlisted={isWishlisted(product.id)}
           />
 
           <ProductFeatures
@@ -134,14 +141,16 @@ export default function ProductDetails({
           >
             ← Back to Shop
           </Link>
+
         </div>
       </div>
 
       <div className="mx-auto mt-24 max-w-7xl">
         <RelatedProducts
-          currentId={product.product_id}
+          currentId={product.id}
         />
       </div>
+
     </main>
   );
 }

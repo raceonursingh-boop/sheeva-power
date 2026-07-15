@@ -21,6 +21,7 @@ type RazorpayPaymentResponse = {
 };
 
 export default function CheckoutForm() {
+  
   const router = useRouter();
 
 const {
@@ -86,9 +87,18 @@ const total = subtotal + shipping;
         },
 
         handler: async (
-          response: RazorpayPaymentResponse
-        ) => {
-          const verifyResponse = await fetch(
+  response: RazorpayPaymentResponse
+) => {
+
+  console.log("========== CART ==========");
+  cart.forEach((item) => {
+    console.log("id:", item.id);
+    console.log("type:", typeof item.id);
+    console.log("name:", item.name);
+  });
+  console.log("==========================");
+
+  const verifyResponse = await fetch(
             "/api/verify-payment",
             {
               method: "POST",

@@ -18,8 +18,8 @@ export default async function Products() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {products.map((product: any) => (
             <ProductCard
-              key={product.id}
-              id={product.id}
+              key={product.product_id}
+              id={product.product_id}
               name={product.name}
               price={product.price}
               image={product.image}
