@@ -8,6 +8,7 @@ import { X } from "lucide-react";
 
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
+import { useAuth } from "../../context/AuthContext";
 
 interface Props {
   open: boolean;
@@ -45,12 +46,12 @@ export default function SideMenu({
 
   const { totalItems } = useCart();
   const { wishlist } = useWishlist();
+  const { user, logout } = useAuth();
 
   return (
     <AnimatePresence>
       {open && (
         <>
-          {/* Backdrop */}
           <motion.div
             onClick={onClose}
             className="fixed inset-0 z-40 bg-black/70 backdrop-blur-md"
@@ -59,7 +60,6 @@ export default function SideMenu({
             exit={{ opacity: 0 }}
           />
 
-          {/* Side Menu */}
           <motion.aside
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
@@ -70,7 +70,6 @@ export default function SideMenu({
             }}
             className="fixed right-0 top-0 z-50 flex h-screen w-[85vw] max-w-[380px] flex-col bg-[#090909] px-10 py-8 shadow-2xl"
           >
-            {/* Header */}
             <div className="mb-14 flex items-start justify-between">
               <h2 className="text-5xl font-black uppercase leading-none">
                 <span className="text-white">
@@ -92,7 +91,6 @@ export default function SideMenu({
               </button>
             </div>
 
-            {/* Navigation */}
             <nav className="flex flex-col gap-9">
               {menuItems.map((item, index) => (
                 <motion.div
@@ -137,17 +135,53 @@ export default function SideMenu({
                 </motion.div>
               ))}
             </nav>
-
-            {/* Footer */}
+                        {/* Footer */}
             <div className="mt-auto border-t border-white/10 pt-8">
-              <p className="text-sm uppercase tracking-[0.35em] text-gray-500">
-                SHEEVA POWER
-              </p>
 
-              <p className="mt-2 text-xs text-gray-600">
-                Premium Streetwear.
-              </p>
+              {user ? (
+                <div className="space-y-4">
+
+                  <Link
+                    href="/admin"
+                    onClick={onClose}
+                    className="block text-lg font-bold uppercase tracking-wide text-red-600 transition hover:text-red-500"
+                  >
+                    Admin Dashboard
+                  </Link>
+
+                  <button
+                    onClick={async () => {
+                      await logout();
+                      onClose();
+                    }}
+                    className="block text-lg font-bold uppercase tracking-wide text-white transition hover:text-red-600"
+                  >
+                    Logout
+                  </button>
+
+                </div>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={onClose}
+                  className="block text-lg font-bold uppercase tracking-wide text-white transition hover:text-red-600"
+                >
+                  Login
+                </Link>
+              )}
+
+              <div className="mt-8 border-t border-white/10 pt-8">
+                <p className="text-sm uppercase tracking-[0.35em] text-gray-500">
+                  SHEEVA POWER
+                </p>
+
+                <p className="mt-2 text-xs text-gray-600">
+                  Built For The Relentless
+                </p>
+              </div>
+
             </div>
+
           </motion.aside>
         </>
       )}
