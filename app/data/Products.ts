@@ -1,27 +1,27 @@
 import type { Product } from "../types/Product";
 
 export const products: Product[] = [
-  {
-    id: 1,
-    name: "CORE",
-    price: 1,
-    material: "240 GSM Premium Cotton",
-    color: "Black",
-    badge: "NEW",
-    description:
-      "Built for the relentless. Heavyweight oversized tee engineered for training, streetwear and everyday comfort.",
-    images: [
-      "/products/core.png",
-      "/products/core.png",
-      "/products/core.png",
-      "/products/core.png",
-    ],
-    sizes: ["S", "M", "L", "XL"],
-    stock: 50,
-    category: "Oversized",
-    collection: "POWER",
-    image: "/products/core.png",
-  },
+{
+  id: 1,
+  name: "CORE",
+  price: 1,
+  material: "240 GSM Premium Cotton",
+  color: "Black",
+  badge: "NEW",
+  description:
+    "Built for the relentless. Heavyweight oversized tee engineered for training, streetwear and everyday comfort.",
+  images: [
+    "/products/core-001/front.jpg",
+    "/products/core-001/front.jpg",
+    "/products/core-001/front.jpg",
+    "/products/core-001/front.jpg",
+  ],
+  sizes: ["S", "M", "L", "XL"],
+  stock: 50,
+  category: "Oversized",
+  collection: "POWER",
+  image: "/products/core-001/front.jpg",
+},
 
   {
     id: 2,

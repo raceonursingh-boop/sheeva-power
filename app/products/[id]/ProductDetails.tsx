@@ -21,45 +21,25 @@ interface Props {
   product: Product;
 }
 
-export default function ProductDetails({
-  product,
-}: Props) {
-
-  // ===== DEBUG =====
-  console.log("========== PRODUCT ==========");
-  console.log(product);
-  console.log("product.id =", product.id);
-  console.log(
-    "product.product_id =",
-    (product as any).product_id
-  );
-  console.log("=============================");
-  // =================
-
+export default function ProductDetails({ product }: Props) {
   const { addToCart } = useCart();
-  const { toggleWishlist, isWishlisted } =
-    useWishlist();
+  const { toggleWishlist, isWishlisted } = useWishlist();
 
-  const [selectedSize, setSelectedSize] =
-    useState("M");
+  const [selectedSize, setSelectedSize] = useState("M");
+  const [quantity, setQuantity] = useState(1);
 
-  const [quantity, setQuantity] =
-    useState(1);
+  const images =
+    product.images && product.images.length > 0
+      ? product.images
+      : [product.image];
 
-  const images = [
-    product.image,
-    product.image,
-    product.image,
-    product.image,
-  ];
-
-  const [selectedImage, setSelectedImage] =
-    useState(images[0]);
+  const [selectedImage, setSelectedImage] = useState(
+    images[0] || product.image
+  );
 
   return (
     <main className="min-h-screen bg-black px-6 py-20">
       <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
-
         <ProductGallery
           images={images}
           selectedImage={selectedImage}
@@ -68,38 +48,54 @@ export default function ProductDetails({
         />
 
         <div>
-
+          {/* Badge */}
           <p className="uppercase tracking-[0.4em] text-red-500">
             {product.badge}
           </p>
 
+          {/* Title */}
           <h1 className="mt-4 text-6xl font-black text-white">
-            {product.name}
+            CORE_001
           </h1>
 
+          {/* Material */}
           <p className="mt-4 text-lg text-gray-400">
-            {product.material}
+            240 GSM Heavyweight Cotton
           </p>
 
+          {/* Launch Badge */}
           <div className="mt-6 flex items-center gap-3">
-            <div className="text-yellow-400">
-              ★★★★★
-            </div>
+            <span className="rounded-full border border-red-600 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-red-500">
+              DROP 001
+            </span>
 
-            <p className="text-sm text-gray-500">
-              145 Reviews
-            </p>
+            <span className="text-sm text-gray-400">
+              First Release
+            </span>
           </div>
 
+          {/* Price */}
           <p className="mt-6 text-5xl font-black text-red-500">
             ₹{product.price}
           </p>
 
+          {/* Description */}
           <p className="mt-8 max-w-lg leading-8 text-gray-400">
-            Premium oversized heavyweight cotton designed
-            for training, travel, college and everyday
-            life.
+            Built for movement.
+            <br />
+            <br />
+            CORE_001 is our signature oversized heavyweight tee
+            crafted from premium 240 GSM heavyweight cotton with
+            a relaxed silhouette that feels just as comfortable
+            in the gym as it does on the street.
+            <br />
+            <br />
+            Minimal by design.
+            <br />
+            Made for every memory.
           </p>
+
+          <div className="my-8 h-px bg-white/10" />
 
           <SizeSelector
             selected={selectedSize}
@@ -116,9 +112,9 @@ export default function ProductDetails({
               for (let i = 0; i < quantity; i++) {
                 addToCart({
                   id: product.id,
-                  name: product.name,
+                  name: "CORE_001",
                   price: product.price,
-                  image: product.image,
+                  image: selectedImage,
                   size: selectedSize,
                 });
               }
@@ -129,9 +125,23 @@ export default function ProductDetails({
             wishlisted={isWishlisted(product.id)}
           />
 
-          <ProductFeatures
-            material={product.material}
-          />
+          {/* Specifications */}
+          <div className="mt-10 rounded-2xl border border-white/10 bg-[#0d0d0d] p-6">
+            <h3 className="mb-5 text-lg font-bold text-white">
+              Specifications
+            </h3>
+
+            <ul className="space-y-3 text-gray-400">
+              <li>• 240 GSM Heavyweight Cotton</li>
+              <li>• Oversized Relaxed Fit</li>
+              <li>• Double Needle Stitching</li>
+              <li>• Soft Touch Finish</li>
+              <li>• Minimal Signature Branding</li>
+              <li>• Designed in India</li>
+            </ul>
+          </div>
+
+          <ProductFeatures material={product.material} />
 
           <ShippingCard />
 
@@ -141,16 +151,12 @@ export default function ProductDetails({
           >
             ← Back to Shop
           </Link>
-
         </div>
       </div>
 
       <div className="mx-auto mt-24 max-w-7xl">
-        <RelatedProducts
-          currentId={product.id}
-        />
+        <RelatedProducts currentId={product.id} />
       </div>
-
     </main>
   );
 }

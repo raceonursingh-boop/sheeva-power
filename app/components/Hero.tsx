@@ -1,68 +1,84 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Button from "./Button";
+import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#050505] px-6">
-      {/* Background Glows */}
-      <div className="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600/10 blur-[180px]" />
-
-      <div className="absolute right-20 top-20 h-64 w-64 rounded-full bg-red-500/10 blur-[120px]" />
-
-      <div className="absolute bottom-20 left-20 h-52 w-52 rounded-full bg-red-700/10 blur-[120px]" />
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-6">
+      {/* Subtle Background Glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03),transparent_65%)]" />
 
       <motion.div
-        className="relative z-10 max-w-5xl text-center"
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        className="relative z-10 mx-auto max-w-5xl text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
       >
+        {/* Drop */}
         <motion.p
-          className="mb-8 uppercase tracking-[0.7em] text-red-500"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="mb-6 uppercase tracking-[0.8em] text-red-500"
         >
-          PERFORMANCE STREETWEAR
+          DROP 001
         </motion.p>
 
+        {/* Brand */}
         <motion.h1
-          className="text-7xl font-black uppercase leading-none text-white md:text-9xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.25 }}
+          className="text-7xl font-black uppercase tracking-tight text-white md:text-[8rem]"
         >
           SHEEVA
         </motion.h1>
 
         <motion.h1
-          className="text-7xl font-black uppercase leading-none text-red-600 md:text-9xl"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="text-7xl font-black uppercase tracking-tight text-white md:text-[8rem]"
         >
           POWER
         </motion.h1>
 
-        <motion.p
-          className="mx-auto mt-10 max-w-2xl text-xl leading-8 text-gray-400"
+        {/* Product */}
+        <motion.h2
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
+          className="mt-12 text-2xl font-semibold uppercase tracking-[0.5em] text-gray-300"
         >
-          Built for athletes, creators and relentless minds.
-          Every piece is designed to push you further.
-        </motion.p>
+          CORE_001
+        </motion.h2>
 
+        {/* Philosophy */}
         <motion.div
-          className="mt-14"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ delay: 0.9 }}
+          className="mt-10 space-y-2 text-lg text-gray-400"
         >
-          <Button>SHOP NOW</Button>
+          <p>Built for everyone.</p>
+          <p>For everything.</p>
+          <p>For every memory.</p>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2 }}
+          className="mt-14"
+        >
+          <Link
+            href="/shop"
+            className="inline-flex rounded-full border border-white px-10 py-4 text-sm font-semibold uppercase tracking-[0.3em] text-white transition-all duration-300 hover:bg-white hover:text-black"
+          >
+            SHOP DROP 001
+          </Link>
         </motion.div>
       </motion.div>
     </section>
