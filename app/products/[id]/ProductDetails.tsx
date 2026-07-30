@@ -28,6 +28,11 @@ export default function ProductDetails({ product }: Props) {
   const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
 
+  // 🔍 DEBUG
+  console.log("FULL PRODUCT:", product);
+  console.log("IMAGE:", product.image);
+  console.log("IMAGES:", product.images);
+
   const images =
     product.images && product.images.length > 0
       ? product.images
@@ -40,59 +45,42 @@ export default function ProductDetails({ product }: Props) {
   return (
     <main className="min-h-screen bg-black px-6 py-20">
       <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
-        <ProductGallery
-          images={images}
-          selectedImage={selectedImage}
-          onSelect={setSelectedImage}
-          productName={product.name}
-        />
+  <ProductGallery
+  images={images}
+  selectedImage={selectedImage}
+  onSelect={setSelectedImage}
+  productName={product.name}
+/>
 
         <div>
-          {/* Badge */}
-          <p className="uppercase tracking-[0.4em] text-red-500">
+          <p className="uppercase tracking-[0.4em] text-[#2563EB]">
             {product.badge}
           </p>
 
-          {/* Title */}
-          <h1 className="mt-4 text-6xl font-black text-white">
-            CORE_001
+          <h1 className="mt-4 text-6xl font-black uppercase text-white">
+            {product.name}
           </h1>
 
-          {/* Material */}
           <p className="mt-4 text-lg text-gray-400">
-            240 GSM Heavyweight Cotton
+            {product.material}
           </p>
 
-          {/* Launch Badge */}
           <div className="mt-6 flex items-center gap-3">
-            <span className="rounded-full border border-red-600 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-red-500">
+            <span className="rounded-full border border-[#2563EB] px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#2563EB]">
               DROP 001
             </span>
 
             <span className="text-sm text-gray-400">
-              First Release
+              LIMITED RELEASE
             </span>
           </div>
 
-          {/* Price */}
-          <p className="mt-6 text-5xl font-black text-red-500">
+          <p className="mt-6 text-5xl font-black text-white">
             ₹{product.price}
           </p>
 
-          {/* Description */}
           <p className="mt-8 max-w-lg leading-8 text-gray-400">
-            Built for movement.
-            <br />
-            <br />
-            CORE_001 is our signature oversized heavyweight tee
-            crafted from premium 240 GSM heavyweight cotton with
-            a relaxed silhouette that feels just as comfortable
-            in the gym as it does on the street.
-            <br />
-            <br />
-            Minimal by design.
-            <br />
-            Made for every memory.
+            {product.description}
           </p>
 
           <div className="my-8 h-px bg-white/10" />
@@ -112,27 +100,24 @@ export default function ProductDetails({ product }: Props) {
               for (let i = 0; i < quantity; i++) {
                 addToCart({
                   id: product.id,
-                  name: "CORE_001",
+                  name: product.name,
                   price: product.price,
                   image: selectedImage,
                   size: selectedSize,
                 });
               }
             }}
-            onToggleWishlist={() =>
-              toggleWishlist(product.id)
-            }
+            onToggleWishlist={() => toggleWishlist(product.id)}
             wishlisted={isWishlisted(product.id)}
           />
 
-          {/* Specifications */}
           <div className="mt-10 rounded-2xl border border-white/10 bg-[#0d0d0d] p-6">
             <h3 className="mb-5 text-lg font-bold text-white">
               Specifications
             </h3>
 
             <ul className="space-y-3 text-gray-400">
-              <li>• 240 GSM Heavyweight Cotton</li>
+              <li>• {product.material}</li>
               <li>• Oversized Relaxed Fit</li>
               <li>• Double Needle Stitching</li>
               <li>• Soft Touch Finish</li>

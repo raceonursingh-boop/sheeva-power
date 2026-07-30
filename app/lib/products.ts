@@ -77,6 +77,7 @@ export async function getRelatedProducts(
 
   return data;
 }
+
 export async function getProductById(id: number) {
   const { data, error } = await supabase
     .from("products")

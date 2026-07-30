@@ -17,21 +17,14 @@ import MiniCart from "../cart/MiniCart";
 import { useCart } from "../../context/CartContext";
 
 export default function Navbar() {
-  const {
-    openCart,
-    totalItems,
-  } = useCart();
+  const { openCart, totalItems } = useCart();
 
-  const [menuOpen, setMenuOpen] =
-    useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Lock body scroll
   useEffect(() => {
-    if (menuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = menuOpen ? "hidden" : "";
 
     return () => {
       document.body.style.overflow = "";
@@ -40,32 +33,46 @@ export default function Navbar() {
 
   // Close with Escape
   useEffect(() => {
-    function handleKeyDown(
-      event: KeyboardEvent
-    ) {
+    function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setMenuOpen(false);
       }
     }
 
-    window.addEventListener(
-      "keydown",
-      handleKeyDown
-    );
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener(
-        "keydown",
-        handleKeyDown
-      );
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  // Detect scrolling
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 30);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-5">
-
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          scrolled
+            ? "border-b border-white/10 bg-black/70 backdrop-blur-xl shadow-2xl"
+            : "bg-transparent"
+        }`}
+      >
+        <div
+          className={`mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 transition-all duration-500 ${
+            scrolled ? "py-3" : "py-6"
+          }`}
+        >
           <Logo />
 
           {/* Desktop Nav */}
@@ -80,16 +87,13 @@ export default function Navbar() {
 
           {/* Right Side */}
           <div className="flex items-center gap-3">
-
             <WishlistButton />
 
             <div className="relative">
-              <CartButton
-                onClick={openCart}
-              />
+              <CartButton onClick={openCart} />
 
               {totalItems > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white">
+                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-blue-700 text-xs font-bold text-white">
                   {totalItems}
                 </span>
               )}
@@ -97,15 +101,9 @@ export default function Navbar() {
 
             <HamburgerButton
               open={menuOpen}
-              onClick={() =>
-                setMenuOpen(
-                  !menuOpen
-                )
-              }
+              onClick={() => setMenuOpen(!menuOpen)}
             />
-
           </div>
-
         </div>
       </header>
 
@@ -113,9 +111,7 @@ export default function Navbar() {
 
       <SideMenu
         open={menuOpen}
-        onClose={() =>
-          setMenuOpen(false)
-        }
+        onClose={() => setMenuOpen(false)}
       />
     </>
   );
