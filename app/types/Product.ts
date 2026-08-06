@@ -1,7 +1,11 @@
 export interface Product {
-  id: number;
+  id: string; // UUID from Supabase
+
+  product_id: number; // Numeric product number
 
   name: string;
+  slug: string;
+
   price: number;
 
   material: string;
@@ -13,6 +17,8 @@ export interface Product {
 
   images: string[];
 
+  image: string;
+
   sizes: string[];
 
   stock: number;
@@ -21,5 +27,7 @@ export interface Product {
 
   collection: string;
 
-  image: string;
+  featured: boolean;
+
+  active: boolean;
 }

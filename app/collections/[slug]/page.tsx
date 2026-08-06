@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
+
 import ProductCard from "../../components/ProductCard";
-import { products } from "../../data/Products";
+import { getProducts } from "@/app/lib/products";
 
 export default async function CollectionPage({
   params,
@@ -10,6 +11,8 @@ export default async function CollectionPage({
   const { slug } = await params;
 
   const collectionName = slug.toUpperCase();
+
+  const products = await getProducts();
 
   const collectionProducts = products.filter(
     (product) => product.collection === collectionName
@@ -33,10 +36,10 @@ export default async function CollectionPage({
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {collectionProducts.map((product) => (
-  <ProductCard
-  key={product.id}
-  product={product}
-/>
+            <ProductCard
+              key={product.id}
+              product={product}
+            />
           ))}
         </div>
       </div>

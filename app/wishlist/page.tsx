@@ -2,15 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { products } from "../data/Products";
+import { products } from "@/app/data/Products";
 import { useWishlist } from "../context/WishlistContext";
 
 export default function WishlistPage() {
   const { wishlist } = useWishlist();
 
-  const savedProducts = products.filter((product) =>
-    wishlist.some((item) => item.id === product.id)
-  );
+ const savedProducts = products.filter((product) =>
+  wishlist.some((item) => item.id === product.product_id)
+);
 
   return (
     <main className="min-h-screen bg-black px-6 py-16">
@@ -38,7 +38,7 @@ export default function WishlistPage() {
             {savedProducts.map((product) => (
               <Link
                 key={product.id}
-                href={`/products/${product.id}`}
+            href={`/products/${product.product_id}`}
                 className="overflow-hidden rounded-3xl border border-white/10 bg-[#111] transition hover:border-red-600"
               >
                 <div className="relative aspect-square">
