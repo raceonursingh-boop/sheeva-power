@@ -83,7 +83,7 @@ export async function POST(request: Request) {
     });
 
     // Save address
-    const savedAddress = await createAddress({
+    await createAddress({
       customer_id: savedCustomer.id,
       address: address.address,
       city: address.city,

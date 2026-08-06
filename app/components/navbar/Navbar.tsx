@@ -12,8 +12,6 @@ import CartButton from "./CartButton";
 import HamburgerButton from "./HamburgerButton";
 import SideMenu from "./SideMenu";
 
-import MiniCart from "../cart/MiniCart";
-
 import { useCart } from "../../context/CartContext";
 
 export default function Navbar() {
@@ -107,7 +105,6 @@ export default function Navbar() {
         </div>
       </header>
 
-    
       <SideMenu
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
