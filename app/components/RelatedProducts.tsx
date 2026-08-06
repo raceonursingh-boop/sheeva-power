@@ -21,7 +21,7 @@ export default function RelatedProducts({
       <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
         {products.map((product) => (
           <ProductCard
-            key={product.product_id}
+            key={product.id}
             product={product}
           />
         ))}
