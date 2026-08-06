@@ -162,7 +162,7 @@ export default function ProductDetails({
                 </span>
 
                 <span className="font-medium text-white">
-                  Drop 001
+                  {product.collection}
                 </span>
               </div>
 
