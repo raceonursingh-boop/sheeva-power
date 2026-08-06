@@ -20,7 +20,7 @@ export default function WhySheeva() {
           </p>
 
           <h2 className="text-5xl font-black uppercase leading-[0.9] md:text-7xl xl:text-8xl">
-            WE DON'T
+            WE DON&apos;T
             <br />
             FOLLOW
             <br />
@@ -50,7 +50,7 @@ export default function WhySheeva() {
                 250 GSM
               </h3>
 
-              <p className="mt-4 text-neutral-400 leading-8">
+              <p className="mt-4 leading-8 text-neutral-400">
                 Heavyweight premium cotton built to keep its shape and feel,
                 wear after wear.
               </p>
@@ -61,7 +61,7 @@ export default function WhySheeva() {
                 OVERSIZED FIT
               </h3>
 
-              <p className="mt-4 text-neutral-400 leading-8">
+              <p className="mt-4 leading-8 text-neutral-400">
                 Relaxed proportions that balance comfort, movement and everyday wear.
               </p>
             </div>
@@ -71,7 +71,7 @@ export default function WhySheeva() {
                 DESIGNED WITH PURPOSE
               </h3>
 
-              <p className="mt-4 text-neutral-400 leading-8">
+              <p className="mt-4 leading-8 text-neutral-400">
                 Every graphic, fabric choice and fit exists for a reason.
                 Nothing is added without intention.
               </p>
