@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import { Product } from "../../types/Product";
+import type { Product } from "../../types/Product";
 
 import { useCart } from "../../context/CartContext";
 import { useWishlist } from "../../context/WishlistContext";
