@@ -33,14 +33,9 @@ export default async function CollectionPage({
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {collectionProducts.map((product) => (
-         <ProductCard
+  <ProductCard
   key={product.id}
-id={product.id}
-  name={product.name}
-  price={product.price}
-  image={product.image}
-  badge={product.badge}
-  material={product.material}
+  product={product}
 />
           ))}
         </div>

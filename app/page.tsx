@@ -1,20 +1,38 @@
 import Navbar from "./components/navbar/Navbar";
-import Hero from "./components/Hero";
+import LandingHero from "./components/home/LandingHero";
+
 import Drop001 from "./components/Drop001";
-import Footer from "./components/Footer";
 import WhySheeva from "./components/WhySheeva";
 import Philosophy from "./components/Philosophy";
+import Footer from "./components/Footer";
+import LoadingScreen from "./components/LoadingScreen";
+
 export default function Home() {
   return (
-    <main className="bg-black overflow-x-hidden text-white">
+    <main className="min-h-screen overflow-x-hidden bg-[#050505] text-white">
+      <LoadingScreen />
+
       <Navbar />
 
-      <Hero />
+      <LandingHero />
 
-      <Drop001 />
-<WhySheeva />
-<Philosophy />
-      <Footer />
+  
+
+      <section id="drop001">
+        <Drop001 />
+      </section>
+
+      <section id="about">
+        <WhySheeva />
+      </section>
+
+      <section id="philosophy">
+        <Philosophy />
+      </section>
+
+      <footer id="footer">
+        <Footer />
+      </footer>
     </main>
   );
 }

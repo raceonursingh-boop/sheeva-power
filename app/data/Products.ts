@@ -33,16 +33,15 @@ export const products: Product[] = [
     description:
       "A heavyweight oversized tee with a washed finish built for everyday wear.",
     images: [
-      "/products/shadow.png",
-      "/products/shadow.png",
-      "/products/shadow.png",
-      "/products/shadow.png",
+      "/products/shadow-front.png",
+      "/products/shadow-back.png",
+    
     ],
     sizes: ["S", "M", "L", "XL"],
     stock: 38,
     category: "Oversized",
     collection: "STREET",
-    image: "/products/shadow.png",
+    image: "/products/shadow-front.png",
   },
 
   {
@@ -55,16 +54,15 @@ export const products: Product[] = [
     description:
       "Bold oversized tee crafted from premium heavyweight cotton with all-day comfort.",
     images: [
-      "/products/crimson.png",
-      "/products/crimson.png",
-      "/products/crimson.png",
-      "/products/crimson.png",
+      "/products/crimson-front.png",
+      "/products/crimson-back.png",
+    
     ],
     sizes: ["S", "M", "L", "XL"],
     stock: 30,
     category: "Oversized",
     collection: "STREET",
-    image: "/products/crimson.png",
+    image: "/products/crimson-front.png",
   },
 
   {
@@ -77,16 +75,15 @@ export const products: Product[] = [
     description:
       "Minimal oversized silhouette with premium construction for gym and streetwear.",
     images: [
-      "/products/ascend.png",
-      "/products/ascend.png",
-      "/products/ascend.png",
-      "/products/ascend.png",
+      "/products/ascend-front.png",
+      "/products/ascend-back.png",
+     
     ],
     sizes: ["S", "M", "L", "XL"],
     stock: 20,
     category: "Oversized",
     collection: "POWER",
-    image: "/products/ascend.png",
+    image: "/products/ascend-front.png",
   },
 
   {
@@ -99,16 +96,15 @@ export const products: Product[] = [
     description:
       "Heavyweight 250 GSM oversized tee designed to perform in and out of the gym.",
     images: [
-      "/products/forged.png",
-      "/products/forged.png",
-      "/products/forged.png",
-      "/products/forged.png",
+      "/products/forged-front.png",
+      "/products/forged-back.png",
+      
     ],
     sizes: ["S", "M", "L", "XL"],
     stock: 40,
     category: "Oversized",
     collection: "POWER",
-    image: "/products/forged.png",
+    image: "/products/forged-front.png",
   },
 
   {
@@ -120,17 +116,15 @@ export const products: Product[] = [
     badge: "NEW",
     description:
       "Premium heavyweight tee inspired by classic lifting culture and built for everyday wear.",
-    images: [
-      "/products/powerclub.png",
-      "/products/powerclub.png",
-      "/products/powerclub.png",
-      "/products/powerclub.png",
-    ],
-    sizes: ["S", "M", "L", "XL"],
+  images: [
+  "/products/powerclub-front.png",
+  "/products/powerclub-back.png",
+],
+sizes: ["S", "M", "L", "XL"],
     stock: 35,
     category: "Oversized",
     collection: "POWER",
-    image: "/products/powerclub.png",
+    image: "/products/powerclub-front.png",
   },
 
   {
@@ -143,16 +137,15 @@ export const products: Product[] = [
     description:
       "Luxury oversized tee made with premium heavyweight cotton and a timeless fit.",
     images: [
-      "/products/legacy.png",
-      "/products/legacy.png",
-      "/products/legacy.png",
-      "/products/legacy.png",
+      "/products/legacy-front.png",
+      "/products/legacy-back.png",
+     
     ],
     sizes: ["S", "M", "L", "XL"],
     stock: 18,
     category: "Oversized",
     collection: "NIGHT",
-    image: "/products/legacy.png",
+    image: "/products/legacy-front.png",
   },
 
   {
@@ -165,10 +158,9 @@ export const products: Product[] = [
     description:
       "Street-inspired oversized tee designed for confidence inside and outside the gym.",
     images: [
-      "/products/rebel.png",
-      "/products/rebel.png",
-      "/products/rebel.png",
-      "/products/rebel.png",
+      "/products/rebel-front.png",
+      "/products/rebel-back.png",
+     
     ],
     sizes: ["S", "M", "L", "XL"],
     stock: 27,
@@ -187,16 +179,15 @@ export const products: Product[] = [
     description:
       "Designed for athletes who push beyond limits with a clean oversized silhouette.",
     images: [
-      "/products/nolimit.png",
-      "/products/nolimit.png",
-      "/products/nolimit.png",
-      "/products/nolimit.png",
+      "/products/nolimit-front.png",
+      "/products/nolimit-back.png",
+     
     ],
     sizes: ["S", "M", "L", "XL"],
     stock: 15,
     category: "Oversized",
     collection: "CAMPUS",
-    image: "/products/nolimit.png",
+    image: "/products/nolimit-front.png",
   },
 
   {
@@ -209,15 +200,14 @@ export const products: Product[] = [
     description:
       "Heavyweight premium tee combining minimalist design with maximum comfort.",
     images: [
-      "/products/volt.png",
-      "/products/volt.png",
-      "/products/volt.png",
-      "/products/volt.png",
+      "/products/volt-front.png",
+      "/products/volt-back.png",
+     
     ],
     sizes: ["S", "M", "L", "XL"],
     stock: 12,
     category: "Oversized",
     collection: "POWER",
-    image: "/products/volt.png",
+    image: "/products/volt-front.png",
   },
 ];

@@ -19,12 +19,7 @@ export default async function Products() {
           {products.map((product: any) => (
             <ProductCard
               key={product.product_id}
-              id={product.product_id}
-              name={product.name}
-              price={product.price}
-              image={product.image}
-              badge={product.badge}
-              material={product.material}
+              product={product}
             />
           ))}
         </div>

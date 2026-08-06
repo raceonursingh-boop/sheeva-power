@@ -2,42 +2,87 @@
 
 import { motion } from "framer-motion";
 
+const philosophy = [
+  {
+    title: "PURPOSE",
+    text: "Every garment begins with intention. Nothing is added without a reason.",
+  },
+  {
+    title: "DISCIPLINE",
+    text: "Progress is built through consistency, not shortcuts or hype.",
+  },
+  {
+    title: "LEGACY",
+    text: "Create something worth remembering. Wear your ambition every day.",
+  },
+];
+
 export default function Philosophy() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-6">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03),transparent_70%)]" />
+    <section className="bg-black px-6 py-40 text-white">
+      <div className="mx-auto max-w-7xl">
 
-      <motion.div
-        className="relative z-10 max-w-5xl text-center"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
-      >
-        <motion.h2
-          initial={{ y: 60, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-6xl font-black uppercase leading-none text-white md:text-[8rem]"
-        >
-          STAY
-          <br />
-          POWERFUL.
-        </motion.h2>
+        {/* Heading */}
 
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="mt-16 space-y-4 text-xl text-gray-400"
+          transition={{ duration: 0.7 }}
+          className="text-center"
         >
-          <p>Built for everyone.</p>
-          <p>For everything.</p>
-          <p>For every memory.</p>
+          <p className="mb-6 text-xs uppercase tracking-[0.7em] text-red-500">
+            OUR PHILOSOPHY
+          </p>
+
+          <h2 className="text-5xl font-black uppercase leading-[0.9] md:text-7xl xl:text-8xl">
+            PURPOSE.
+            <br />
+            DISCIPLINE.
+            <br />
+            LEGACY.
+          </h2>
+
+          <p className="mx-auto mt-10 max-w-3xl text-lg leading-9 text-neutral-400">
+            Sheeva Power exists to create garments that outlive trends,
+            inspire discipline and become part of your everyday journey.
+          </p>
         </motion.div>
-      </motion.div>
+
+        {/* Philosophy */}
+
+        <div className="mt-32 grid gap-16 lg:grid-cols-3">
+
+          {philosophy.map((item, index) => (
+
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: index * 0.15,
+              }}
+            >
+              <div className="border-t border-neutral-800 pt-8">
+
+                <h3 className="text-3xl font-black uppercase">
+                  {item.title}
+                </h3>
+
+                <p className="mt-6 leading-8 text-neutral-400">
+                  {item.text}
+                </p>
+
+              </div>
+            </motion.div>
+
+          ))}
+
+        </div>
+
+      </div>
     </section>
   );
 }

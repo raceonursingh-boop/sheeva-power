@@ -15,75 +15,86 @@ import ProductActions from "../../components/product/ProductActions";
 import ProductFeatures from "../../components/product/ProductFeatures";
 import ShippingCard from "../../components/product/ShippingCard";
 
-import RelatedProducts from "../../components/RelatedProducts";
-
 interface Props {
   product: Product;
 }
 
-export default function ProductDetails({ product }: Props) {
+export default function ProductDetails({
+  product,
+}: Props) {
   const { addToCart } = useCart();
-  const { toggleWishlist, isWishlisted } = useWishlist();
+  const { toggleWishlist, isWishlisted } =
+    useWishlist();
 
-  const [selectedSize, setSelectedSize] = useState("M");
+  const [selectedSize, setSelectedSize] =
+    useState("M");
+
   const [quantity, setQuantity] = useState(1);
-
-  // 🔍 DEBUG
-  console.log("FULL PRODUCT:", product);
-  console.log("IMAGE:", product.image);
-  console.log("IMAGES:", product.images);
 
   const images =
     product.images && product.images.length > 0
       ? product.images
       : [product.image];
 
-  const [selectedImage, setSelectedImage] = useState(
-    images[0] || product.image
-  );
+  const [selectedImage, setSelectedImage] =
+    useState(images[0] || product.image);
 
   return (
-    <main className="min-h-screen bg-black px-6 py-20">
-      <div className="mx-auto grid max-w-7xl gap-16 lg:grid-cols-2">
-  <ProductGallery
-  images={images}
-  selectedImage={selectedImage}
-  onSelect={setSelectedImage}
-  productName={product.name}
-/>
+    <main className="min-h-screen bg-black px-6 py-28">
+      <div className="mx-auto grid max-w-7xl gap-20 lg:grid-cols-2">
 
-        <div>
-          <p className="uppercase tracking-[0.4em] text-[#2563EB]">
+        {/* Gallery */}
+
+        <ProductGallery
+          images={images}
+          selectedImage={selectedImage}
+          onSelect={setSelectedImage}
+          productName={product.name}
+        />
+
+        {/* Product Info */}
+
+        <div className="lg:sticky lg:top-28 lg:self-start">
+
+          <p className="text-xs font-semibold uppercase tracking-[0.5em] text-red-500">
             {product.badge}
           </p>
 
-          <h1 className="mt-4 text-6xl font-black uppercase text-white">
+          <h1 className="mt-5 text-5xl font-black uppercase leading-none tracking-tight text-white md:text-6xl">
             {product.name}
           </h1>
 
-          <p className="mt-4 text-lg text-gray-400">
+          <p className="mt-5 text-base uppercase tracking-[0.25em] text-neutral-400">
             {product.material}
           </p>
 
-          <div className="mt-6 flex items-center gap-3">
-            <span className="rounded-full border border-[#2563EB] px-3 py-1 text-xs font-semibold uppercase tracking-widest text-[#2563EB]">
+          <div className="mt-7 flex items-center gap-3">
+
+            <span className="rounded-full border border-red-600 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-red-500">
               DROP 001
             </span>
 
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-neutral-500">
               LIMITED RELEASE
             </span>
+
           </div>
 
-          <p className="mt-6 text-5xl font-black text-white">
+          <p className="mt-8 text-4xl font-black text-white">
             ₹{product.price}
           </p>
 
-          <p className="mt-8 max-w-lg leading-8 text-gray-400">
-            {product.description}
-          </p>
+          <div className="mt-10 border-t border-white/10 pt-10">
 
-          <div className="my-8 h-px bg-white/10" />
+            <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500">
+              Description
+            </h2>
+
+            <p className="max-w-xl leading-8 text-neutral-400">
+              {product.description}
+            </p>
+
+          </div>
 
           <SizeSelector
             selected={selectedSize}
@@ -99,7 +110,7 @@ export default function ProductDetails({ product }: Props) {
             onAddToCart={() => {
               for (let i = 0; i < quantity; i++) {
                 addToCart({
-                  id: product.id,
+                  id: product.product_id,
                   name: product.name,
                   price: product.price,
                   image: selectedImage,
@@ -107,40 +118,83 @@ export default function ProductDetails({ product }: Props) {
                 });
               }
             }}
-            onToggleWishlist={() => toggleWishlist(product.id)}
-            wishlisted={isWishlisted(product.id)}
+            onToggleWishlist={() =>
+              toggleWishlist(product.product_id)
+            }
+            wishlisted={isWishlisted(
+              product.product_id
+            )}
           />
 
-          <div className="mt-10 rounded-2xl border border-white/10 bg-[#0d0d0d] p-6">
-            <h3 className="mb-5 text-lg font-bold text-white">
-              Specifications
-            </h3>
+          {/* Specifications */}
 
-            <ul className="space-y-3 text-gray-400">
-              <li>• {product.material}</li>
-              <li>• Oversized Relaxed Fit</li>
-              <li>• Double Needle Stitching</li>
-              <li>• Soft Touch Finish</li>
-              <li>• Minimal Signature Branding</li>
-              <li>• Designed in India</li>
-            </ul>
+          <div className="mt-12 rounded-3xl border border-white/10 bg-[#0d0d0d] p-8">
+
+            <h2 className="mb-8 text-xl font-bold text-white">
+              Specifications
+            </h2>
+
+            <div className="space-y-5">
+
+              <div className="flex justify-between border-b border-white/10 pb-3">
+                <span className="text-neutral-500">
+                  Material
+                </span>
+
+                <span className="font-medium text-white">
+                  {product.material}
+                </span>
+              </div>
+
+              <div className="flex justify-between border-b border-white/10 pb-3">
+                <span className="text-neutral-500">
+                  Fit
+                </span>
+
+                <span className="font-medium text-white">
+                  Oversized
+                </span>
+              </div>
+
+              <div className="flex justify-between border-b border-white/10 pb-3">
+                <span className="text-neutral-500">
+                  Collection
+                </span>
+
+                <span className="font-medium text-white">
+                  Drop 001
+                </span>
+              </div>
+
+              <div className="flex justify-between">
+                <span className="text-neutral-500">
+                  Origin
+                </span>
+
+                <span className="font-medium text-white">
+                  Designed in India
+                </span>
+              </div>
+
+            </div>
+
           </div>
 
-          <ProductFeatures material={product.material} />
+          <ProductFeatures
+            material={product.material}
+          />
 
           <ShippingCard />
 
           <Link
             href="/shop"
-            className="mt-10 inline-block text-gray-400 transition hover:text-white"
+            className="mt-12 inline-flex items-center text-sm uppercase tracking-[0.25em] text-neutral-500 transition hover:text-white"
           >
             ← Back to Shop
           </Link>
-        </div>
-      </div>
 
-      <div className="mx-auto mt-24 max-w-7xl">
-        <RelatedProducts currentId={product.id} />
+        </div>
+
       </div>
     </main>
   );

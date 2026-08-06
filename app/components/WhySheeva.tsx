@@ -2,68 +2,83 @@
 
 import { motion } from "framer-motion";
 
-const features = [
-  {
-    title: "240 GSM",
-    text: "Heavyweight premium cotton built to hold its structure wear after wear.",
-  },
-  {
-    title: "OVERSIZED",
-    text: "Relaxed proportions designed for movement and everyday comfort.",
-  },
-  {
-    title: "MINIMAL",
-    text: "Timeless essentials without unnecessary graphics or distractions.",
-  },
-  {
-    title: "EVERY MEMORY",
-    text: "Built to move with you through the gym, college, travel and everything in between.",
-  },
-];
-
 export default function WhySheeva() {
   return (
-    <section className="bg-[#050505] py-40 px-6">
+    <section className="bg-[#050505] px-6 py-40 text-white">
       <div className="mx-auto max-w-7xl">
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-red-500 uppercase tracking-[0.6em]"
-        >
-          WHY SHEEVA POWER
-        </motion.p>
-
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-6 text-5xl font-black uppercase text-white md:text-7xl"
+          transition={{ duration: 0.7 }}
+          className="max-w-5xl"
         >
-          BUILT TO LAST.
-        </motion.h2>
+          <p className="mb-6 text-xs uppercase tracking-[0.7em] text-red-500">
+            WHY SHEEVA POWER
+          </p>
 
-        <div className="mt-20 grid gap-8 md:grid-cols-2">
-          {features.map((feature, index) => (
-            <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.15 }}
-              viewport={{ once: true }}
-              className="rounded-3xl border border-white/10 bg-[#0b0b0b] p-10 transition duration-300 hover:border-red-600"
-            >
-              <h3 className="text-3xl font-black text-white">
-                {feature.title}
+          <h2 className="text-5xl font-black uppercase leading-[0.9] md:text-7xl xl:text-8xl">
+            WE DON'T
+            <br />
+            FOLLOW
+            <br />
+            TRENDS.
+          </h2>
+        </motion.div>
+
+        {/* Statement */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.15, duration: 0.7 }}
+          className="mt-24 grid gap-20 lg:grid-cols-2"
+        >
+          <div>
+            <p className="text-3xl font-light leading-relaxed text-neutral-300">
+              We build garments designed to become part of your everyday life.
+              Heavyweight fabrics. Timeless silhouettes. Purpose before hype.
+            </p>
+          </div>
+
+          <div className="space-y-10">
+
+            <div className="border-t border-neutral-800 pt-8">
+              <h3 className="text-2xl font-black uppercase">
+                250 GSM
               </h3>
 
-              <p className="mt-5 leading-8 text-gray-400">
-                {feature.text}
+              <p className="mt-4 text-neutral-400 leading-8">
+                Heavyweight premium cotton built to keep its shape and feel,
+                wear after wear.
               </p>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+
+            <div className="border-t border-neutral-800 pt-8">
+              <h3 className="text-2xl font-black uppercase">
+                OVERSIZED FIT
+              </h3>
+
+              <p className="mt-4 text-neutral-400 leading-8">
+                Relaxed proportions that balance comfort, movement and everyday wear.
+              </p>
+            </div>
+
+            <div className="border-t border-neutral-800 pt-8">
+              <h3 className="text-2xl font-black uppercase">
+                DESIGNED WITH PURPOSE
+              </h3>
+
+              <p className="mt-4 text-neutral-400 leading-8">
+                Every graphic, fabric choice and fit exists for a reason.
+                Nothing is added without intention.
+              </p>
+            </div>
+
+          </div>
+        </motion.div>
 
       </div>
     </section>

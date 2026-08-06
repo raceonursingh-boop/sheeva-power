@@ -107,8 +107,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      <MiniCart />
-
+    
       <SideMenu
         open={menuOpen}
         onClose={() => setMenuOpen(false)}

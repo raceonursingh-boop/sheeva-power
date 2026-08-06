@@ -17,24 +17,24 @@ interface Props {
 
 const menuItems = [
   {
+    name: "Home",
+    href: "/",
+  },
+  {
     name: "Shop",
     href: "/shop",
-  },
-  {
-    name: "Collections",
-    href: "/collections",
-  },
-  {
-    name: "Search",
-    href: "/search",
   },
   {
     name: "Wishlist",
     href: "/wishlist",
   },
   {
+    name: "Checkout",
+    href: "/checkout",
+  },
+  {
     name: "Cart",
-    href: "/cart",
+    href: "#",
   },
 ];
 
@@ -44,7 +44,7 @@ export default function SideMenu({
 }: Props) {
   const pathname = usePathname();
 
-  const { totalItems } = useCart();
+  const { totalItems, openCart } = useCart();
   const { wishlist } = useWishlist();
   const { user, logout } = useAuth();
 
@@ -94,7 +94,7 @@ export default function SideMenu({
             <nav className="flex flex-col gap-9">
               {menuItems.map((item, index) => (
                 <motion.div
-                  key={item.href}
+                  key={item.name}
                   initial={{
                     opacity: 0,
                     x: 30,
@@ -107,40 +107,51 @@ export default function SideMenu({
                     delay: 0.1 + index * 0.05,
                   }}
                 >
-                  <Link
-                    href={item.href}
-                    onClick={onClose}
-                    className={`flex items-center justify-between text-2xl font-black uppercase tracking-wide transition-all duration-300 hover:translate-x-2 ${
-                      pathname === item.href
-                        ? "text-red-600"
-                        : "text-white hover:text-red-600"
-                    }`}
-                  >
-                    <span>{item.name}</span>
+                  {item.name === "Cart" ? (
+                    <button
+                      onClick={() => {
+                        openCart();
+                        onClose();
+                      }}
+                      className="flex w-full items-center justify-between text-2xl font-black uppercase tracking-wide text-white transition-all duration-300 hover:translate-x-2 hover:text-red-600"
+                    >
+                      <span>{item.name}</span>
 
-                    {item.name === "Cart" &&
-                      totalItems > 0 && (
+                      {totalItems > 0 && (
                         <span className="rounded-full bg-red-600 px-3 py-1 text-sm text-white">
                           {totalItems}
                         </span>
                       )}
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      onClick={onClose}
+                      className={`flex items-center justify-between text-2xl font-black uppercase tracking-wide transition-all duration-300 hover:translate-x-2 ${
+                        pathname === item.href
+                          ? "text-red-600"
+                          : "text-white hover:text-red-600"
+                      }`}
+                    >
+                      <span>{item.name}</span>
 
-                    {item.name === "Wishlist" &&
-                      wishlist.length > 0 && (
-                        <span className="rounded-full bg-red-600 px-3 py-1 text-sm text-white">
-                          {wishlist.length}
-                        </span>
-                      )}
-                  </Link>
+                      {item.name === "Wishlist" &&
+                        wishlist.length > 0 && (
+                          <span className="rounded-full bg-red-600 px-3 py-1 text-sm text-white">
+                            {wishlist.length}
+                          </span>
+                        )}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
             </nav>
-                        {/* Footer */}
-            <div className="mt-auto border-t border-white/10 pt-8">
 
+            {/* Footer */}
+
+            <div className="mt-auto border-t border-white/10 pt-8">
               {user ? (
                 <div className="space-y-4">
-
                   <Link
                     href="/admin"
                     onClick={onClose}
@@ -158,7 +169,6 @@ export default function SideMenu({
                   >
                     Logout
                   </button>
-
                 </div>
               ) : (
                 <Link
@@ -179,9 +189,7 @@ export default function SideMenu({
                   Built For The Relentless
                 </p>
               </div>
-
             </div>
-
           </motion.aside>
         </>
       )}

@@ -1,16 +1,16 @@
 import ProductCard from "./ProductCard";
-import { products } from "../data/Products";
+import type { Product } from "../types/Product";
 
 interface RelatedProductsProps {
-  currentId: number;
+  products: Product[];
 }
 
 export default function RelatedProducts({
-  currentId,
+  products,
 }: RelatedProductsProps) {
-  const related = products
-    .filter((product) => product.id !== currentId)
-    .slice(0, 4);
+  if (!products.length) {
+    return null;
+  }
 
   return (
     <section>
@@ -19,15 +19,10 @@ export default function RelatedProducts({
       </h2>
 
       <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
-        {related.map((product) => (
+        {products.map((product) => (
           <ProductCard
-            key={product.id}
-            id={product.id}
-            name={product.name}
-            price={product.price}
-            image={product.image}
-            badge={product.badge}
-            material={product.material}
+            key={product.product_id}
+            product={product}
           />
         ))}
       </div>

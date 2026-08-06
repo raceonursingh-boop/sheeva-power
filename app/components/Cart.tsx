@@ -16,7 +16,7 @@ export default function Cart({ open, onClose }: CartProps) {
     increaseQuantity,
     decreaseQuantity,
   } = useCart();
-
+console.log("CART:", cart);
   const total = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
