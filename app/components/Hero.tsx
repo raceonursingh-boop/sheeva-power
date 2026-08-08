@@ -35,32 +35,30 @@ export default function Hero() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden bg-black px-6 py-28 text-white md:py-32">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(220,38,38,0.10),transparent_60%)]" />
-
-        <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="relative overflow-hidden bg-black px-4 py-20 text-white sm:px-6 lg:px-8">
+        <div className="relative mx-auto grid max-w-7xl items-center justify-items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:justify-items-stretch">
           {/* LEFT SIDE */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-center lg:text-left"
+            className="w-full max-w-md text-center lg:max-w-none lg:text-left"
           >
             <p className="mb-6 text-xs font-semibold uppercase tracking-[0.7em] text-red-500">
               DROP 001
             </p>
 
-            <h1 className="text-5xl font-black uppercase leading-none tracking-tight md:text-7xl xl:text-8xl">
+            <h1 className="text-4xl font-black uppercase leading-none tracking-tight sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
               SHEEVA
               <br />
               POWER
             </h1>
 
-            <p className="mt-8 max-w-xl text-lg leading-8 text-neutral-400 md:text-xl lg:max-w-lg">
+            <p className="mt-6 text-base leading-7 text-neutral-400 sm:text-lg md:text-xl lg:max-w-lg">
               Built For Every Journey.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+            <div className="mt-8 flex justify-center lg:justify-start">
               <Link
                 href="/shop"
                 className="rounded-full bg-red-600 px-8 py-4 text-sm font-black uppercase tracking-[0.3em] text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-[0_18px_40px_rgba(220,38,38,0.35)]"
@@ -75,10 +73,10 @@ export default function Hero() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex justify-center lg:justify-end"
+            className="flex w-full justify-center lg:justify-end"
           >
             <Link href="/products/7" className="group block">
-              <div className="relative h-[540px] w-[420px] md:h-[620px] md:w-[500px]">
+              <div className="relative h-[360px] w-[300px] sm:h-[480px] sm:w-[380px] md:h-[620px] md:w-[500px]">
                 {/* FRONT */}
                 <Image
                   src="/products/legacy-front.png"
@@ -120,20 +118,20 @@ export default function Hero() {
       </section>
 
       {/* REVEAL SECTION */}
-      <section className="bg-black px-6 py-32 text-white">
+      <section className="bg-black px-4 py-24 text-white sm:px-6 lg:px-8 lg:py-32">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="mb-24 text-center"
+            className="mb-16 text-center lg:mb-24"
           >
             <p className="mb-4 text-xs uppercase tracking-[0.6em] text-red-500">
               THE COLLECTION
             </p>
 
-            <h2 className="text-5xl font-black uppercase md:text-7xl">
+            <h2 className="text-4xl font-black uppercase md:text-6xl lg:text-7xl">
               TEN DESIGNS.
               <br />
               ONE VISION.
@@ -141,7 +139,7 @@ export default function Hero() {
           </motion.div>
 
           {/* 4 LARGE FLOATING SHIRTS */}
-          <div className="grid gap-x-20 gap-y-16 md:grid-cols-2 md:gap-y-28">
+          <div className="grid grid-cols-1 gap-y-20 gap-x-10 sm:grid-cols-2 md:gap-x-16 lg:gap-x-20">
             {featuredProducts.map((product, index) => (
               <motion.div
                 key={product.name}
@@ -152,7 +150,7 @@ export default function Hero() {
                 className={index % 2 === 0 ? "md:-mt-8" : "md:mt-8"}
               >
                 <Link href={product.href} className="group block">
-                  <div className="relative mx-auto h-[420px] w-full max-w-[520px] md:h-[560px]">
+                  <div className="relative mx-auto h-[340px] w-full max-w-[340px] sm:h-[420px] sm:max-w-[420px] lg:h-[560px] lg:max-w-[520px]">
                     {/* HOVER GLOW */}
                     <div className="absolute inset-0 rounded-full bg-red-600/10 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100" />
 
@@ -173,7 +171,7 @@ export default function Hero() {
                     />
                   </div>
 
-                  <h3 className="mt-10 text-center text-2xl font-bold uppercase tracking-[0.35em] transition duration-300 group-hover:text-red-500">
+                  <h3 className="mt-8 text-center text-lg font-bold uppercase tracking-[0.25em] transition duration-300 group-hover:text-red-500 sm:mt-10 sm:text-2xl sm:tracking-[0.35em]">
                     {product.name}
                   </h3>
                 </Link>
@@ -182,7 +180,7 @@ export default function Hero() {
           </div>
 
           {/* SMALL BUTTON */}
-          <div className="mt-24 flex justify-center">
+          <div className="mt-20 flex justify-center lg:mt-24">
             <Link
               href="/shop"
               className="text-xs font-semibold uppercase tracking-[0.45em] text-neutral-400 transition-all duration-300 hover:text-red-500"
