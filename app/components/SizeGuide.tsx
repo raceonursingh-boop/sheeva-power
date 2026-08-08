@@ -69,11 +69,11 @@ export default function SizeGuide() {
                       </td>
 
                       <td className="px-6 py-4 text-neutral-300">
-                        {chest}"
+                        {chest}&quot;
                       </td>
 
                       <td className="px-6 py-4 text-neutral-300">
-                        {length}"
+                        {length}&quot;
                       </td>
                     </tr>
                   ))}
@@ -88,7 +88,9 @@ export default function SizeGuide() {
               </p>
 
               <p className="mt-3 text-sm leading-7 text-neutral-300">
-                Sheeva Power tees are designed with a relaxed oversized silhouette. Choose your regular size for the intended heavyweight streetwear fit, or size down for a slightly more fitted look.
+                Sheeva Power tees are designed with a relaxed oversized silhouette.
+                Choose your regular size for the intended heavyweight streetwear fit,
+                or size down for a slightly more fitted look.
               </p>
             </div>
 
