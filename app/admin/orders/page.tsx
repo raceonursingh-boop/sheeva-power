@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getOrders } from "@/app/lib/adminOrders";
-
+import OrderStatus from "@/app/components/admin/OrderStatus";
 export default async function OrdersPage() {
   const orders = await getOrders();
 

@@ -20,7 +20,6 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
 
@@ -29,7 +28,6 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  // Close with Escape
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
@@ -44,7 +42,6 @@ export default function Navbar() {
     };
   }, []);
 
-  // Detect scrolling
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
@@ -59,48 +56,64 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "border-b border-white/10 bg-black/70 backdrop-blur-xl shadow-2xl"
-            : "bg-transparent"
-        }`}
-      >
+      <header className="fixed inset-x-0 top-4 z-50 flex justify-center px-4">
         <div
-          className={`mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 transition-all duration-500 ${
-            scrolled ? "py-3" : "py-6"
-          }`}
+          className={`
+            w-full
+            max-w-7xl
+            rounded-2xl
+            transition-all
+            duration-500
+            ${
+              scrolled
+                ? "border border-white/10 bg-black/40 backdrop-blur-2xl shadow-2xl"
+                : "border border-transparent bg-transparent"
+            }
+          `}
         >
-          <Logo />
+          <div
+            className={`
+              flex
+              items-center
+              justify-between
+              gap-6
+              px-6
+              transition-all
+              duration-500
+              ${scrolled ? "py-4" : "py-5"}
+            `}
+          >
+            <Logo />
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:block">
-            <NavLinks />
-          </div>
-
-          {/* Desktop Search */}
-          <div className="hidden max-w-sm flex-1 xl:block">
-            <SearchBar />
-          </div>
-
-          {/* Right Side */}
-          <div className="flex items-center gap-3">
-            <WishlistButton />
-
-            <div className="relative">
-              <CartButton onClick={openCart} />
-
-              {totalItems > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-blue-700 text-xs font-bold text-white">
-                  {totalItems}
-                </span>
-              )}
+            {/* Desktop Nav */}
+            <div className="hidden lg:block">
+              <NavLinks />
             </div>
 
-            <HamburgerButton
-              open={menuOpen}
-              onClick={() => setMenuOpen(!menuOpen)}
-            />
+            {/* Desktop Search */}
+            <div className="hidden max-w-sm flex-1 xl:block">
+              <SearchBar />
+            </div>
+
+            {/* Right Side */}
+            <div className="flex items-center gap-3">
+              <WishlistButton />
+
+              <div className="relative">
+                <CartButton onClick={openCart} />
+
+                {totalItems > 0 && (
+                  <span className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white shadow-lg">
+                    {totalItems}
+                  </span>
+                )}
+              </div>
+
+              <HamburgerButton
+                open={menuOpen}
+                onClick={() => setMenuOpen(!menuOpen)}
+              />
+            </div>
           </div>
         </div>
       </header>

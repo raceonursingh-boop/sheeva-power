@@ -1,5 +1,3 @@
-import "server-only";
-
 import { supabase } from "./supabase";
 import type { Product } from "../types/Product";
 

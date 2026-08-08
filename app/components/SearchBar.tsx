@@ -3,7 +3,17 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Search } from "lucide-react";
-import { products } from "../data/Products";
+
+const products = [
+  { id: 1, name: "Legacy", price: 1299 },
+  { id: 2, name: "Core", price: 999 },
+  { id: 3, name: "Power Club", price: 1199 },
+  { id: 4, name: "Rebel", price: 1299 },
+  { id: 5, name: "No Limit", price: 1299 },
+  { id: 6, name: "Ascend", price: 1299 },
+  { id: 7, name: "Crimson", price: 1299 },
+  { id: 8, name: "Forged", price: 1299 },
+];
 
 export default function SearchBar() {
   const [query, setQuery] = useState("");
@@ -17,9 +27,9 @@ export default function SearchBar() {
   }, [query]);
 
   return (
-    <div className="relative w-full max-w-sm">
-      <div className="flex items-center rounded-full border border-white/10 bg-[#111] px-4 py-2">
-        <Search size={18} className="text-gray-400" />
+    <div className="relative w-full max-w-md">
+      <div className="flex items-center rounded-full border border-white/10 bg-[#111] px-4 py-3">
+        <Search className="h-5 w-5 text-gray-500" />
 
         <input
           type="text"
@@ -31,7 +41,7 @@ export default function SearchBar() {
       </div>
 
       {filteredProducts.length > 0 && (
-        <div className="absolute mt-2 w-full overflow-hidden rounded-2xl border border-white/10 bg-[#111] shadow-2xl">
+        <div className="absolute z-50 mt-2 w-full overflow-hidden rounded-2xl border border-white/10 bg-[#111] shadow-2xl">
           {filteredProducts.map((product) => (
             <Link
               key={product.id}

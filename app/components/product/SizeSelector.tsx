@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import SizeGuide from "../SizeGuide";
 
 interface Props {
   selected: string;
@@ -14,56 +14,31 @@ export default function SizeSelector({
   onSelect,
 }: Props) {
   return (
-    <section className="mt-12">
-
-      <div className="mb-5 flex items-center justify-between">
-
-        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500">
+    <div className="mt-10">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500">
           Select Size
-        </p>
+        </h2>
 
-        <button
-          type="button"
-          className="text-xs uppercase tracking-[0.2em] text-neutral-500 transition hover:text-white"
-        >
-          Size Guide
-        </button>
-
+        <SizeGuide />
       </div>
 
       <div className="grid grid-cols-4 gap-3">
-
-        {sizes.map((size) => {
-          const active = selected === size;
-
-          return (
-            <motion.button
-              key={size}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => onSelect(size)}
-              className={`
-                h-14
-                rounded-2xl
-                border
-                text-sm
-                font-bold
-                uppercase
-                transition-all
-                duration-300
-                ${
-                  active
-                    ? "border-red-600 bg-red-600 text-white shadow-lg shadow-red-600/25"
-                    : "border-white/10 bg-[#101010] text-white hover:border-red-600 hover:bg-[#171717]"
-                }
-              `}
-            >
-              {size}
-            </motion.button>
-          );
-        })}
-
+        {sizes.map((size) => (
+          <button
+            key={size}
+            type="button"
+            onClick={() => onSelect(size)}
+            className={`rounded-2xl border px-4 py-4 text-sm font-semibold uppercase tracking-[0.25em] transition-all duration-300 ${
+              selected === size
+                ? "border-red-600 bg-red-600 text-white"
+                : "border-white/10 bg-[#0b0b0b] text-white hover:border-red-600 hover:bg-red-600 hover:text-white"
+            }`}
+          >
+            {size}
+          </button>
+        ))}
       </div>
-
-    </section>
+    </div>
   );
 }
