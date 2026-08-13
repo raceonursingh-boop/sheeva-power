@@ -47,12 +47,21 @@ export default function Hero() {
             <p className="mb-6 text-xs font-semibold uppercase tracking-[0.7em] text-red-500">
               DROP 001
             </p>
+<div className="flex justify-center lg:justify-start">
+  <div className="group relative overflow-hidden rounded-3xl bg-gradient-to-r from-black via-[#080808] to-black px-4 py-3 transition-all duration-500">
+    <Image
+      src="/sheeva-logo-navbar.png"
+      alt="Sheeva Power"
+      width={520}
+      height={104}
+      priority
+      className="h-20 w-auto opacity-95 mix-blend-screen transition-all duration-500 group-hover:-translate-y-1 group-hover:scale-105 group-hover:opacity-100 group-hover:drop-shadow-[0_0_28px_rgba(255,255,255,0.22)] sm:h-24 md:h-28 lg:h-32 xl:h-36"
+    />
 
-            <h1 className="text-4xl font-black uppercase leading-none tracking-tight sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
-              SHEEVA
-              <br />
-              POWER
-            </h1>
+    {/* subtle moving glow */}
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
+  </div>
+</div>
 
             <p className="mt-6 text-base leading-7 text-neutral-400 sm:text-lg md:text-xl lg:max-w-lg">
               Built For Every Journey.

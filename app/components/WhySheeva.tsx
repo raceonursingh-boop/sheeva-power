@@ -62,7 +62,8 @@ export default function WhySheeva() {
               </h3>
 
               <p className="mt-4 leading-8 text-neutral-400">
-                Relaxed proportions that balance comfort, movement and everyday wear.
+                Relaxed proportions that balance comfort, movement and everyday
+                wear.
               </p>
             </div>
 
